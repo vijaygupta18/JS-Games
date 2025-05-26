@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-bomb"></i>
+                Minesweeper
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="score-label">Mines</span>
+                        <span class="score-value" id="minesDisplay">10</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Flags</span>
+                        <span class="score-value" id="flagsDisplay">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Time</span>
+                        <span class="score-value" id="timeDisplay">000</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Cells</span>
+                        <span class="score-value" id="cellsDisplay">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="difficulty-selector">
+                <label for="difficultySelect">Difficulty:</label>
+                <select id="difficultySelect">
+                    <option value="beginner">Beginner (9x9, 10 mines)</option>
+                    <option value="intermediate" selected>Intermediate (16x16, 40 mines)</option>
+                    <option value="expert">Expert (30x16, 99 mines)</option>
+                    <option value="custom">Custom</option>
+                </select>
+            </div>
+
+            <div class="custom-settings" id="customSettings" style="display: none;">
+                <div class="custom-input">
+                    <label for="customWidth">Width:</label>
+                    <input type="number" id="customWidth" min="5" max="30" value="16">
+                </div>
+                <div class="custom-input">
+                    <label for="customHeight">Height:</label>
+                    <input type="number" id="customHeight" min="5" max="24" value="16">
+                </div>
+                <div class="custom-input">
+                    <label for="customMines">Mines:</label>
+                    <input type="number" id="customMines" min="1" max="200" value="40">
+                </div>
+            </div>
+
+            <div class="game-area">
+                <div class="game-grid" id="gameGrid">
+                    <!-- Grid cells will be generated dynamically -->
+                </div>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 id="overlayTitle">Minesweeper</h2>
+                        <p id="overlayMessage">Click New Game to start!</p>
+                        <div class="overlay-buttons">
+                            <button class="btn btn-primary" id="newGameBtn">
+                                <i class="fas fa-plus"></i>
+                                New Game
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-plus"></i>
+                    New Game
+                </button>
+                <button class="btn btn-secondary" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    Hint
+                </button>
+                <button class="btn btn-secondary" id="autoSolveBtn">
+                    <i class="fas fa-magic"></i>
+                    Auto-Solve
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Left click to reveal cells</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-flag"></i>
+                        <span>Right click to flag suspected mines</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-hashtag"></i>
+                        <span>Numbers show adjacent mine count</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Clear all non-mine cells to win</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="stats-panel">
+            <h3>Game Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Games Won</span>
+                    <span class="stat-value" id="gamesWon">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Win Rate</span>
+                    <span class="stat-value" id="winRate">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Best Time</span>
+                    <span class="stat-value" id="bestTime">---</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
