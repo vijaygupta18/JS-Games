@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Platformer - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-running"></i>
+                Mini Platformer
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="score-label">Score</span>
+                        <span class="score-value" id="scoreDisplay">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Lives</span>
+                        <span class="score-value" id="livesDisplay">3</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Level</span>
+                        <span class="score-value" id="levelDisplay">1</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Coins</span>
+                        <span class="score-value" id="coinsDisplay">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Time</span>
+                        <span class="score-value" id="timeDisplay">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <canvas id="gameCanvas" width="800" height="600"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 id="overlayTitle">Mini Platformer</h2>
+                        <p id="overlayMessage">Use WASD or Arrow Keys to move and jump!</p>
+                        <div class="overlay-buttons">
+                            <button class="btn btn-primary" id="startBtn">
+                                <i class="fas fa-play"></i>
+                                Start Adventure
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    <i class="fas fa-pause"></i>
+                    Pause
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </button>
+                <button class="btn btn-secondary" id="powerUpBtn" disabled>
+                    <i class="fas fa-magic"></i>
+                    Power-Up
+                </button>
+            </div>
+
+            <!-- Mobile Controls -->
+            <div class="mobile-controls" id="mobileControls">
+                <div class="mobile-dpad">
+                    <button class="mobile-btn" id="leftBtn">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="mobile-btn" id="rightBtn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+                <div class="mobile-actions">
+                    <button class="mobile-btn jump-btn" id="jumpBtn">
+                        <i class="fas fa-arrow-up"></i>
+                    </button>
+                    <button class="mobile-btn action-btn" id="actionBtn">
+                        <i class="fas fa-hand-paper"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Use WASD or Arrow Keys to move and jump</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-coins"></i>
+                        <span>Collect coins and power-ups to increase your score</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-skull"></i>
+                        <span>Avoid enemies and spikes - they'll cost you a life</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-flag-checkered"></i>
+                        <span>Reach the flag at the end of each level</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-magic"></i>
+                        <span>Use power-ups: Double Jump, Speed Boost, Invincibility</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile: Use on-screen controls to play</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="stats-panel">
+            <h3>Game Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">High Score</span>
+                    <span class="stat-value" id="highScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Levels Completed</span>
+                    <span class="stat-value" id="levelsCompleted">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Coins</span>
+                    <span class="stat-value" id="totalCoins">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Best Time</span>
+                    <span class="stat-value" id="bestTime">--:--</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Deaths</span>
+                    <span class="stat-value" id="totalDeaths">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
