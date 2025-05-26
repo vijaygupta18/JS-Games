@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-keyboard"></i>
+                Typing Speed Test
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="stats-board">
+                    <div class="stat-item">
+                        <span class="stat-label">WPM</span>
+                        <span class="stat-value" id="wpmDisplay">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="accuracyDisplay">100%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value" id="timeDisplay">60</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Characters</span>
+                        <span class="stat-value" id="charactersDisplay">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-area">
+                <div class="text-display" id="textDisplay">
+                    <span class="text-content" id="textContent"></span>
+                </div>
+                
+                <div class="input-area">
+                    <textarea 
+                        id="typingInput" 
+                        placeholder="Click here and start typing when ready..."
+                        disabled
+                        rows="4"
+                    ></textarea>
+                </div>
+                
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <div class="difficulty-selector">
+                    <label for="difficultySelect">Difficulty:</label>
+                    <select id="difficultySelect">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                
+                <div class="time-selector">
+                    <label for="timeSelect">Duration:</label>
+                    <select id="timeSelect">
+                        <option value="30">30 seconds</option>
+                        <option value="60" selected>60 seconds</option>
+                        <option value="120">2 minutes</option>
+                        <option value="300">5 minutes</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-play"></i>
+                    Start Test
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>Instructions</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Click in the text area to start</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-keyboard"></i>
+                        <span>Type the text as accurately as possible</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Your WPM and accuracy are calculated in real-time</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Try to beat your personal best!</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="game-overlay" id="gameOverlay">
+            <div class="overlay-content">
+                <div class="result-icon">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+                <h2 class="result-text">Test Complete!</h2>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <span class="result-label">Words Per Minute</span>
+                        <span class="result-value" id="finalWPM">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Accuracy</span>
+                        <span class="result-value" id="finalAccuracy">100%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Characters Typed</span>
+                        <span class="result-value" id="finalCharacters">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Errors</span>
+                        <span class="result-value" id="finalErrors">0</span>
+                    </div>
+                </div>
+                <div class="performance-message" id="performanceMessage"></div>
+                <button class="btn btn-primary" id="tryAgainBtn">
+                    <i class="fas fa-redo"></i>
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
