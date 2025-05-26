@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memory Game - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-brain"></i>
+                Memory Game
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="stats-board">
+                    <div class="stat-item">
+                        <span class="stat-label">Moves</span>
+                        <span class="stat-value" id="movesDisplay">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Matches</span>
+                        <span class="stat-value" id="matchesDisplay">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value" id="timeDisplay">00:00</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Best Time</span>
+                        <span class="stat-value" id="bestTimeDisplay">--:--</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <div class="memory-grid" id="memoryGrid">
+                    <!-- Cards will be dynamically generated -->
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <div class="difficulty-selector">
+                    <label for="difficultySelect">Difficulty:</label>
+                    <select id="difficultySelect">
+                        <option value="easy">Easy (4x3)</option>
+                        <option value="medium" selected>Medium (4x4)</option>
+                        <option value="hard">Hard (6x4)</option>
+                        <option value="expert">Expert (6x6)</option>
+                    </select>
+                </div>
+                
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-play"></i>
+                    New Game
+                </button>
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    <i class="fas fa-pause"></i>
+                    Pause
+                </button>
+                <button class="btn btn-secondary" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    Hint
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Click cards to flip them over</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-eye"></i>
+                        <span>Find matching pairs of cards</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-clock"></i>
+                        <span>Complete the game in minimum time</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Beat your best score!</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="game-overlay" id="gameOverlay">
+            <div class="overlay-content">
+                <div class="result-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2 class="result-text">Congratulations!</h2>
+                <div class="results-grid">
+                    <div class="result-item">
+                        <span class="result-label">Time</span>
+                        <span class="result-value" id="finalTime">00:00</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Moves</span>
+                        <span class="result-value" id="finalMoves">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Accuracy</span>
+                        <span class="result-value" id="finalAccuracy">100%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">Score</span>
+                        <span class="result-value" id="finalScore">0</span>
+                    </div>
+                </div>
+                <div class="performance-message" id="performanceMessage"></div>
+                <button class="btn btn-primary" id="playAgainBtn">
+                    <i class="fas fa-play"></i>
+                    Play Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
