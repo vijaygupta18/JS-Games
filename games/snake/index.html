@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-snake"></i>
+                Snake Game
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="score-label">Score</span>
+                        <span class="score-value" id="currentScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">High Score</span>
+                        <span class="score-value" id="highScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Level</span>
+                        <span class="score-value" id="currentLevel">1</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <canvas id="gameCanvas" width="400" height="400"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <div class="result-icon" id="resultIcon">
+                            <i class="fas fa-skull"></i>
+                        </div>
+                        <h2 class="result-text" id="resultText">Game Over!</h2>
+                        <p class="result-message" id="resultMessage">Your snake crashed!</p>
+                        <div class="final-score">
+                            <span>Final Score: <strong id="finalScore">0</strong></span>
+                        </div>
+                        <button class="btn btn-primary" id="playAgainBtn">
+                            <i class="fas fa-play"></i>
+                            Play Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn btn-primary" id="startBtn">
+                    <i class="fas fa-play"></i>
+                    Start Game
+                </button>
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    <i class="fas fa-pause"></i>
+                    Pause
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-arrow-up"></i>
+                        <span>Use arrow keys or WASD to move</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-apple-alt"></i>
+                        <span>Eat food to grow and score points</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Avoid hitting walls or yourself</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Speed increases with each level</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-controls" id="mobileControls">
+                <div class="control-row">
+                    <button class="control-btn" data-direction="up">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
+                </div>
+                <div class="control-row">
+                    <button class="control-btn" data-direction="left">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="control-btn" data-direction="down">
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <button class="control-btn" data-direction="right">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
