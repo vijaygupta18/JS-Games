@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Games Hub - Play Amazing Mini Games</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-gamepad"></i>
+                JS Games Hub
+            </h1>
+            <p class="subtitle">Discover amazing mini games built with pure JavaScript</p>
+            <div class="header-controls">
+                <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="random-game-btn" id="randomGameBtn">
+                    <i class="fas fa-random"></i>
+                    Random Game
+                </button>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="games-grid" id="gamesGrid">
+                <!-- Game cards will be dynamically generated -->
+            </div>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 JS Games Hub. Built with ❤️ and JavaScript</p>
+            <div class="social-links">
+                <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-gamepad fa-spin"></i>
+            <p>Loading Game...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
