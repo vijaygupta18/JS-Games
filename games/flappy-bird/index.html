@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-dove"></i>
+                Flappy Bird
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="score-label">Score</span>
+                        <span class="score-value" id="scoreDisplay">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Best</span>
+                        <span class="score-value" id="bestScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Pipes</span>
+                        <span class="score-value" id="pipesDisplay">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <canvas id="gameCanvas" width="400" height="600"></canvas>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 id="overlayTitle">Flappy Bird</h2>
+                        <p id="overlayMessage">Click or press SPACE to start flying!</p>
+                        <div class="overlay-buttons">
+                            <button class="btn btn-primary" id="startBtn">
+                                <i class="fas fa-play"></i>
+                                Start Game
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <div class="speed-control">
+                    <label for="speedSlider">Game Speed:</label>
+                    <input type="range" id="speedSlider" min="1" max="5" value="3" step="0.5">
+                    <span id="speedValue">3</span>
+                </div>
+                <button class="btn btn-secondary" id="pauseBtn" disabled>
+                    <i class="fas fa-pause"></i>
+                    Pause
+                </button>
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-mouse-pointer"></i>
+                        <span>Click or press SPACE to flap wings</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-arrows-alt-v"></i>
+                        <span>Navigate through the pipes without hitting them</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Score points by passing through pipes</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-heart"></i>
+                        <span>Don't hit the ground or pipes!</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="stats-panel">
+            <h3>Game Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">High Score</span>
+                    <span class="stat-value" id="highScore">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Pipes</span>
+                    <span class="stat-value" id="totalPipes">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Best Streak</span>
+                    <span class="stat-value" id="bestStreak">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
