@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-th"></i>
+                2048
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="game-info">
+                <div class="score-board">
+                    <div class="score-item">
+                        <span class="score-label">Score</span>
+                        <span class="score-value" id="currentScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Best</span>
+                        <span class="score-value" id="bestScore">0</span>
+                    </div>
+                    <div class="score-item">
+                        <span class="score-label">Moves</span>
+                        <span class="score-value" id="moveCount">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <div class="game-grid" id="gameGrid">
+                    <!-- Grid cells will be generated dynamically -->
+                </div>
+                <div class="game-overlay" id="gameOverlay">
+                    <div class="overlay-content">
+                        <h2 id="overlayTitle">Game Over!</h2>
+                        <p id="overlayMessage">No more moves available</p>
+                        <div class="overlay-buttons">
+                            <button class="btn btn-primary" id="tryAgainBtn">
+                                <i class="fas fa-redo"></i>
+                                Try Again
+                            </button>
+                            <button class="btn btn-secondary" id="continueBtn" style="display: none;">
+                                <i class="fas fa-play"></i>
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn btn-primary" id="newGameBtn">
+                    <i class="fas fa-plus"></i>
+                    New Game
+                </button>
+                <button class="btn btn-secondary" id="undoBtn" disabled>
+                    <i class="fas fa-undo"></i>
+                    Undo
+                </button>
+                <button class="btn btn-secondary" id="hintBtn">
+                    <i class="fas fa-lightbulb"></i>
+                    Hint
+                </button>
+            </div>
+
+            <div class="game-instructions">
+                <h3>How to Play</h3>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <i class="fas fa-arrows-alt"></i>
+                        <span>Use arrow keys or swipe to move tiles</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-plus"></i>
+                        <span>Tiles with same numbers merge when they touch</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Reach the 2048 tile to win!</span>
+                    </div>
+                    <div class="instruction-item">
+                        <i class="fas fa-infinity"></i>
+                        <span>Keep playing to reach higher scores</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="stats-panel">
+            <h3>Game Statistics</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Games Won</span>
+                    <span class="stat-value" id="gamesWon">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Win Rate</span>
+                    <span class="stat-value" id="winRate">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Highest Tile</span>
+                    <span class="stat-value" id="highestTile">2</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
