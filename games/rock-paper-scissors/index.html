@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors - JS Games Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="../../index.html" class="back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Back to Hub
+            </a>
+            <h1 class="game-title">
+                <i class="fas fa-hand-rock"></i>
+                Rock Paper Scissors
+            </h1>
+        </header>
+
+        <main class="game-container">
+            <div class="score-board">
+                <div class="player-score">
+                    <h3>You</h3>
+                    <span class="score" id="playerScore">0</span>
+                </div>
+                <div class="vs-indicator">VS</div>
+                <div class="computer-score">
+                    <h3>Computer</h3>
+                    <span class="score" id="computerScore">0</span>
+                </div>
+            </div>
+
+            <div class="game-area">
+                <div class="choice-display">
+                    <div class="player-choice">
+                        <h4>Your Choice</h4>
+                        <div class="choice-icon" id="playerChoiceIcon">
+                            <i class="fas fa-question"></i>
+                        </div>
+                        <span class="choice-text" id="playerChoiceText">Make your choice</span>
+                    </div>
+                    
+                    <div class="battle-indicator" id="battleIndicator">
+                        <div class="countdown" id="countdown">3</div>
+                    </div>
+                    
+                    <div class="computer-choice">
+                        <h4>Computer's Choice</h4>
+                        <div class="choice-icon" id="computerChoiceIcon">
+                            <i class="fas fa-question"></i>
+                        </div>
+                        <span class="choice-text" id="computerChoiceText">Thinking...</span>
+                    </div>
+                </div>
+
+                <div class="result-display" id="resultDisplay">
+                    <div class="result-icon" id="resultIcon"></div>
+                    <h2 class="result-text" id="resultText"></h2>
+                    <p class="result-message" id="resultMessage"></p>
+                </div>
+            </div>
+
+            <div class="choices-container">
+                <h3>Make Your Choice</h3>
+                <div class="choices">
+                    <button class="choice-btn" data-choice="rock">
+                        <i class="fas fa-hand-rock"></i>
+                        <span>Rock</span>
+                    </button>
+                    <button class="choice-btn" data-choice="paper">
+                        <i class="fas fa-hand-paper"></i>
+                        <span>Paper</span>
+                    </button>
+                    <button class="choice-btn" data-choice="scissors">
+                        <i class="fas fa-hand-scissors"></i>
+                        <span>Scissors</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="game-controls">
+                <button class="btn btn-secondary" id="resetBtn">
+                    <i class="fas fa-redo"></i>
+                    Reset Score
+                </button>
+                <button class="btn btn-secondary" id="rulesBtn">
+                    <i class="fas fa-info-circle"></i>
+                    Rules
+                </button>
+            </div>
+
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Games Played</span>
+                    <span class="stat-value" id="gamesPlayed">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Win Rate</span>
+                    <span class="stat-value" id="winRate">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Best Streak</span>
+                    <span class="stat-value" id="bestStreak">0</span>
+                </div>
+            </div>
+        </main>
+
+        <div class="rules-modal" id="rulesModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Game Rules</h3>
+                    <button class="close-btn" id="closeRulesBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="rule-item">
+                        <i class="fas fa-hand-rock"></i>
+                        <strong>Rock</strong> crushes Scissors
+                    </div>
+                    <div class="rule-item">
+                        <i class="fas fa-hand-paper"></i>
+                        <strong>Paper</strong> covers Rock
+                    </div>
+                    <div class="rule-item">
+                        <i class="fas fa-hand-scissors"></i>
+                        <strong>Scissors</strong> cuts Paper
+                    </div>
+                    <div class="rule-note">
+                        First to reach 5 wins gets the victory! 🏆
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
