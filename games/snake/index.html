@@ -60,6 +60,10 @@
             </div>
 
             <div class="game-controls">
+                <div class="speed-slider-group">
+                    <label for="speedSlider" class="slider-label"><i class="fas fa-tachometer-alt"></i> Snake Speed: <span id="speedValue">150</span> ms</label>
+                    <input type="range" min="50" max="300" value="150" step="10" id="speedSlider">
+                </div>
                 <button class="btn btn-primary" id="startBtn">
                     <i class="fas fa-play"></i>
                     Start Game

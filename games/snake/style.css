@@ -1,3 +1,96 @@
+/* Speed Slider Styles */
+.speed-slider-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    gap: 4px;
+}
+.slider-label {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1rem;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+#speedSlider {
+    width: 220px;
+    accent-color: var(--primary-color);
+    margin-top: 2px;
+    margin-bottom: 2px;
+    height: 4px;
+    border-radius: 4px;
+    background: var(--gradient-primary);
+    outline: none;
+    transition: background 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+#speedSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid var(--surface-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#speedSlider:focus::-webkit-slider-thumb {
+    background: var(--secondary-color);
+}
+#speedSlider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid var(--surface-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#speedSlider:focus::-moz-range-thumb {
+    background: var(--secondary-color);
+}
+#speedSlider::-ms-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    border: 2px solid var(--surface-color);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: background 0.3s;
+}
+#speedSlider:focus::-ms-thumb {
+    background: var(--secondary-color);
+}
+#speedSlider::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 4px;
+    background: var(--gradient-primary);
+}
+#speedSlider::-ms-fill-lower {
+    background: var(--primary-color);
+}
+#speedSlider::-ms-fill-upper {
+    background: var(--secondary-color);
+}
+#speedSlider:focus {
+    outline: none;
+}
+.speed-slider-group #speedValue {
+    min-width: 32px;
+    display: inline-block;
+    color: var(--secondary-color);
+    font-weight: 700;
+}
 /* CSS Variables */
 :root {
     --primary-color: #667eea;

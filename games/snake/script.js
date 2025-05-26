@@ -5,7 +5,7 @@ class SnakeGame {
         this.ctx = this.canvas.getContext('2d');
         this.gridSize = 20;
         this.tileCount = this.canvas.width / this.gridSize;
-        
+
         // Game state
         this.snake = [{ x: 10, y: 10 }];
         this.food = { x: 15, y: 15 };
@@ -15,15 +15,15 @@ class SnakeGame {
         this.level = 1;
         this.gameRunning = false;
         this.gamePaused = false;
-        this.gameSpeed = 150;
-        this.baseSpeed = 150;
-        
+        this.baseSpeed = parseInt(document.getElementById('speedSlider')?.value || 150, 10);
+        this.gameSpeed = this.baseSpeed;
+
         // High score
         this.highScore = parseInt(localStorage.getItem('snakeHighScore')) || 0;
-        
+
         // Game loop
         this.gameLoop = null;
-        
+
         this.init();
     }
     
@@ -32,6 +32,26 @@ class SnakeGame {
         this.updateDisplay();
         this.drawGame();
         this.generateFood();
+        // Set up speed slider
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        if (speedSlider && speedValue) {
+            speedSlider.value = this.baseSpeed;
+            speedValue.textContent = this.baseSpeed;
+            speedSlider.addEventListener('input', (e) => {
+                const val = parseInt(e.target.value, 10);
+                speedValue.textContent = val;
+                this.baseSpeed = val;
+                if (!this.gameRunning) {
+                    this.gameSpeed = val;
+                }
+                if (this.gameRunning && !this.gamePaused) {
+                    clearInterval(this.gameLoop);
+                    this.gameSpeed = val;
+                    this.gameLoop = setInterval(() => this.update(), this.gameSpeed);
+                }
+            });
+        }
     }
     
     bindEvents() {
@@ -248,12 +268,10 @@ class SnakeGame {
         const newLevel = Math.floor(this.score / 100) + 1;
         if (newLevel > this.level) {
             this.level = newLevel;
-            this.gameSpeed = Math.max(50, this.baseSpeed - (this.level - 1) * 10);
-            
-            // Update game loop with new speed
+            // Speed up, but always respect the slider's minimum
+            this.gameSpeed = Math.max(30, this.baseSpeed - (this.level - 1) * 10);
             clearInterval(this.gameLoop);
             this.gameLoop = setInterval(() => this.update(), this.gameSpeed);
-            
             this.playSound('levelUp');
         }
     }
@@ -316,83 +334,118 @@ class SnakeGame {
     
     drawSnake() {
         this.snake.forEach((segment, index) => {
+            const x = segment.x * this.gridSize;
+            const y = segment.y * this.gridSize;
+            // Shadow for 3D effect
+            this.ctx.save();
+            this.ctx.globalAlpha = 0.25;
+            this.ctx.fillStyle = '#222';
+            this.ctx.beginPath();
+            this.ctx.ellipse(x + this.gridSize / 2, y + this.gridSize - 2, this.gridSize / 2.2, 3, 0, 0, 2 * Math.PI);
+            this.ctx.fill();
+            this.ctx.restore();
+
             if (index === 0) {
-                // Head
-                this.ctx.fillStyle = '#48bb78';
-                this.ctx.fillRect(
-                    segment.x * this.gridSize + 2,
-                    segment.y * this.gridSize + 2,
-                    this.gridSize - 4,
-                    this.gridSize - 4
+                // Head with 3D gradient
+                const grad = this.ctx.createRadialGradient(
+                    x + this.gridSize * 0.35, y + this.gridSize * 0.35, this.gridSize * 0.1,
+                    x + this.gridSize / 2, y + this.gridSize / 2, this.gridSize / 2
                 );
-                
-                // Eyes
-                this.ctx.fillStyle = '#1a202c';
+                grad.addColorStop(0, '#7fffd4');
+                grad.addColorStop(0.5, '#48bb78');
+                grad.addColorStop(1, '#276749');
+                this.ctx.fillStyle = grad;
+                this.ctx.beginPath();
+                this.ctx.arc(x + this.gridSize / 2, y + this.gridSize / 2, this.gridSize / 2 - 2, 0, 2 * Math.PI);
+                this.ctx.fill();
+
+                // Eyes (slightly raised for 3D look)
+                this.ctx.fillStyle = '#222';
                 const eyeSize = 3;
-                const eyeOffset = 6;
-                
-                if (this.dx === 1) { // Moving right
-                    this.ctx.fillRect(segment.x * this.gridSize + eyeOffset + 6, segment.y * this.gridSize + 5, eyeSize, eyeSize);
-                    this.ctx.fillRect(segment.x * this.gridSize + eyeOffset + 6, segment.y * this.gridSize + 12, eyeSize, eyeSize);
-                } else if (this.dx === -1) { // Moving left
-                    this.ctx.fillRect(segment.x * this.gridSize + 5, segment.y * this.gridSize + 5, eyeSize, eyeSize);
-                    this.ctx.fillRect(segment.x * this.gridSize + 5, segment.y * this.gridSize + 12, eyeSize, eyeSize);
-                } else if (this.dy === -1) { // Moving up
-                    this.ctx.fillRect(segment.x * this.gridSize + 5, segment.y * this.gridSize + 5, eyeSize, eyeSize);
-                    this.ctx.fillRect(segment.x * this.gridSize + 12, segment.y * this.gridSize + 5, eyeSize, eyeSize);
-                } else if (this.dy === 1) { // Moving down
-                    this.ctx.fillRect(segment.x * this.gridSize + 5, segment.y * this.gridSize + 12, eyeSize, eyeSize);
-                    this.ctx.fillRect(segment.x * this.gridSize + 12, segment.y * this.gridSize + 12, eyeSize, eyeSize);
+                let eye1 = { ex: 0, ey: 0 }, eye2 = { ex: 0, ey: 0 };
+                if (this.dx === 1) { // Right
+                    eye1 = { ex: x + this.gridSize * 0.7, ey: y + this.gridSize * 0.35 };
+                    eye2 = { ex: x + this.gridSize * 0.7, ey: y + this.gridSize * 0.65 };
+                } else if (this.dx === -1) { // Left
+                    eye1 = { ex: x + this.gridSize * 0.3, ey: y + this.gridSize * 0.35 };
+                    eye2 = { ex: x + this.gridSize * 0.3, ey: y + this.gridSize * 0.65 };
+                } else if (this.dy === -1) { // Up
+                    eye1 = { ex: x + this.gridSize * 0.35, ey: y + this.gridSize * 0.3 };
+                    eye2 = { ex: x + this.gridSize * 0.65, ey: y + this.gridSize * 0.3 };
+                } else { // Down or default
+                    eye1 = { ex: x + this.gridSize * 0.35, ey: y + this.gridSize * 0.7 };
+                    eye2 = { ex: x + this.gridSize * 0.65, ey: y + this.gridSize * 0.7 };
                 }
+                this.ctx.beginPath();
+                this.ctx.arc(eye1.ex, eye1.ey, eyeSize, 0, 2 * Math.PI);
+                this.ctx.arc(eye2.ex, eye2.ey, eyeSize, 0, 2 * Math.PI);
+                this.ctx.fill();
+
+                // Head highlight
+                this.ctx.save();
+                this.ctx.globalAlpha = 0.18;
+                this.ctx.beginPath();
+                this.ctx.arc(x + this.gridSize * 0.6, y + this.gridSize * 0.4, this.gridSize * 0.18, 0, 2 * Math.PI);
+                this.ctx.fillStyle = '#fff';
+                this.ctx.fill();
+                this.ctx.restore();
             } else {
-                // Body
-                const alpha = Math.max(0.3, 1 - (index * 0.05));
-                this.ctx.fillStyle = `rgba(72, 187, 120, ${alpha})`;
-                this.ctx.fillRect(
-                    segment.x * this.gridSize + 1,
-                    segment.y * this.gridSize + 1,
-                    this.gridSize - 2,
-                    this.gridSize - 2
-                );
+                // Body with 3D gradient
+                const grad = this.ctx.createLinearGradient(x, y, x + this.gridSize, y + this.gridSize);
+                grad.addColorStop(0, '#276749');
+                grad.addColorStop(0.5, '#48bb78');
+                grad.addColorStop(1, '#7fffd4');
+                this.ctx.fillStyle = grad;
+                this.ctx.beginPath();
+                this.ctx.arc(x + this.gridSize / 2, y + this.gridSize / 2, this.gridSize / 2.3, 0, 2 * Math.PI);
+                this.ctx.fill();
             }
         });
     }
     
     drawFood() {
-        // Food glow effect
-        const gradient = this.ctx.createRadialGradient(
-            this.food.x * this.gridSize + this.gridSize / 2,
-            this.food.y * this.gridSize + this.gridSize / 2,
-            0,
-            this.food.x * this.gridSize + this.gridSize / 2,
-            this.food.y * this.gridSize + this.gridSize / 2,
-            this.gridSize / 2
-        );
-        gradient.addColorStop(0, '#f56565');
-        gradient.addColorStop(1, '#e53e3e');
-        
-        this.ctx.fillStyle = gradient;
+        const x = this.food.x * this.gridSize;
+        const y = this.food.y * this.gridSize;
+        // Shadow for 3D effect
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.22;
+        this.ctx.fillStyle = '#222';
         this.ctx.beginPath();
-        this.ctx.arc(
-            this.food.x * this.gridSize + this.gridSize / 2,
-            this.food.y * this.gridSize + this.gridSize / 2,
-            this.gridSize / 2 - 2,
-            0,
-            2 * Math.PI
-        );
+        this.ctx.ellipse(x + this.gridSize / 2, y + this.gridSize - 2, this.gridSize / 2.3, 3, 0, 0, 2 * Math.PI);
         this.ctx.fill();
-        
-        // Food highlight
-        this.ctx.fillStyle = '#fed7d7';
+        this.ctx.restore();
+
+        // 3D apple body
+        const grad = this.ctx.createRadialGradient(
+            x + this.gridSize * 0.35, y + this.gridSize * 0.35, this.gridSize * 0.1,
+            x + this.gridSize / 2, y + this.gridSize / 2, this.gridSize / 2
+        );
+        grad.addColorStop(0, '#fff5f5');
+        grad.addColorStop(0.4, '#f56565');
+        grad.addColorStop(1, '#a10000');
+        this.ctx.fillStyle = grad;
         this.ctx.beginPath();
-        this.ctx.arc(
-            this.food.x * this.gridSize + this.gridSize / 3,
-            this.food.y * this.gridSize + this.gridSize / 3,
-            3,
-            0,
-            2 * Math.PI
-        );
+        this.ctx.arc(x + this.gridSize / 2, y + this.gridSize / 2, this.gridSize / 2 - 2, 0, 2 * Math.PI);
         this.ctx.fill();
+
+        // Apple highlight
+        this.ctx.save();
+        this.ctx.globalAlpha = 0.18;
+        this.ctx.beginPath();
+        this.ctx.arc(x + this.gridSize * 0.6, y + this.gridSize * 0.4, this.gridSize * 0.18, 0, 2 * Math.PI);
+        this.ctx.fillStyle = '#fff';
+        this.ctx.fill();
+        this.ctx.restore();
+
+        // Apple stem
+        this.ctx.save();
+        this.ctx.strokeStyle = '#654321';
+        this.ctx.lineWidth = 2;
+        this.ctx.beginPath();
+        this.ctx.moveTo(x + this.gridSize / 2, y + this.gridSize / 2 - this.gridSize * 0.3);
+        this.ctx.lineTo(x + this.gridSize / 2, y + this.gridSize / 2 - this.gridSize * 0.45);
+        this.ctx.stroke();
+        this.ctx.restore();
     }
     
     drawPauseIndicator() {
@@ -466,60 +519,61 @@ class SnakeGame {
     
     playSound(type) {
         try {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            let frequency, duration, waveType = 'sine';
-            
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            let now = ctx.currentTime;
+            let gain = ctx.createGain();
+            gain.connect(ctx.destination);
+            gain.gain.value = 0.12;
+
+            // Helper for richer sound
+            function beep(freq, dur, type = 'sine', vol = 1, detune = 0) {
+                const osc = ctx.createOscillator();
+                const g = ctx.createGain();
+                osc.type = type;
+                osc.frequency.value = freq;
+                osc.detune.value = detune;
+                g.gain.value = vol;
+                osc.connect(g);
+                g.connect(gain);
+                osc.start(now);
+                osc.stop(now + dur);
+            }
+
             switch (type) {
                 case 'start':
-                    frequency = 440;
-                    duration = 0.2;
+                    beep(440, 0.12, 'triangle', 1);
+                    beep(660, 0.08, 'sine', 0.5, 10);
                     break;
                 case 'eat':
-                    frequency = 800;
-                    duration = 0.1;
-                    waveType = 'square';
+                    beep(880, 0.09, 'square', 1);
+                    beep(1760, 0.05, 'triangle', 0.5, 20);
+                    break;
+                case 'move':
+                    beep(220, 0.04, 'triangle', 0.3);
                     break;
                 case 'gameOver':
-                    frequency = 200;
-                    duration = 0.5;
-                    waveType = 'sawtooth';
+                    beep(120, 0.25, 'sawtooth', 1);
+                    beep(80, 0.4, 'triangle', 0.5, -20);
                     break;
                 case 'levelUp':
-                    frequency = 1000;
-                    duration = 0.3;
+                    beep(600, 0.08, 'triangle', 1);
+                    beep(900, 0.08, 'triangle', 0.7);
+                    beep(1200, 0.12, 'triangle', 0.5);
                     break;
                 case 'pause':
-                    frequency = 300;
-                    duration = 0.1;
+                    beep(300, 0.08, 'sine', 0.7);
                     break;
                 case 'resume':
-                    frequency = 500;
-                    duration = 0.1;
+                    beep(500, 0.08, 'sine', 0.7);
                     break;
                 case 'reset':
-                    frequency = 400;
-                    duration = 0.15;
+                    beep(400, 0.1, 'triangle', 0.7);
                     break;
                 default:
                     return;
             }
-            
-            oscillator.frequency.value = frequency;
-            oscillator.type = waveType;
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
         } catch (error) {
-            console.log('Audio not supported');
+            // Audio not supported
         }
     }
 }
