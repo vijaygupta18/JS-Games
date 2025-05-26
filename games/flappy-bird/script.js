@@ -1,4 +1,4 @@
-// Flappy Bird Game Class
+// Simple Flappy Bird Game
 class FlappyBirdGame {
     constructor() {
         this.canvas = document.getElementById('gameCanvas');
@@ -11,8 +11,6 @@ class FlappyBirdGame {
         this.score = 0;
         this.pipes = [];
         this.particles = [];
-        this.countdownActive = false;
-        this.countdownValue = 3;
         
         // Bird properties
         this.bird = {
@@ -32,10 +30,6 @@ class FlappyBirdGame {
         this.pipeSpeed = 3;
         this.pipeSpawnRate = 90; // frames between pipes
         this.frameCount = 0;
-        
-        // Game speed
-        this.baseSpeed = 3;
-        this.speedMultiplier = 1;
         
         // Background
         this.backgroundOffset = 0;
@@ -68,19 +62,6 @@ class FlappyBirdGame {
         document.getElementById('startBtn').addEventListener('click', () => this.startGame());
         document.getElementById('pauseBtn').addEventListener('click', () => this.togglePause());
         document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
-        
-        // Speed slider
-        const speedSlider = document.getElementById('speedSlider');
-        const speedValue = document.getElementById('speedValue');
-        
-        speedSlider.addEventListener('input', () => {
-            const speed = parseFloat(speedSlider.value);
-            speedValue.textContent = speed;
-            this.updateGameSpeed(speed);
-        });
-        
-        // Set initial speed
-        this.updateGameSpeed(parseFloat(speedSlider.value));
         
         // Game controls
         document.addEventListener('keydown', (e) => this.handleKeyPress(e));
@@ -126,8 +107,7 @@ class FlappyBirdGame {
     }
     
     startGame() {
-        // Set initial game state
-        this.gameActive = false;  // Will be set to true after countdown
+        this.gameActive = true;
         this.gamePaused = false;
         this.gameOver = false;
         this.score = 0;
@@ -142,29 +122,10 @@ class FlappyBirdGame {
         
         this.hideOverlay();
         this.updateButtons();
+        this.updateDisplay();
+        this.gameLoop();
         
-        // Start countdown
-        this.startCountdown();
-    }
-    
-    startCountdown() {
-        this.countdownActive = true;
-        this.countdownValue = 3;
-        
-        const countdownInterval = setInterval(() => {
-            this.countdownValue--;
-            
-            if (this.countdownValue <= 0) {
-                clearInterval(countdownInterval);
-                this.countdownActive = false;
-                this.gameActive = true;
-                this.gameLoop();
-                this.playSound('start');
-            }
-            
-            // Render during countdown
-            this.render();
-        }, 1000);
+        this.playSound('start');
     }
     
     togglePause() {
@@ -251,7 +212,7 @@ class FlappyBirdGame {
             this.spawnPipe();
         }
         
-        // Update background based on speed
+        // Update background
         this.backgroundOffset -= this.pipeSpeed * 0.33;
         this.cloudOffset -= this.pipeSpeed * 0.16;
         
@@ -262,12 +223,9 @@ class FlappyBirdGame {
         if (this.cloudOffset <= -this.canvas.width) {
             this.cloudOffset = 0;
         }
-    }
-    
-    updateGameSpeed(speed) {
-        this.speedMultiplier = speed;
-        this.pipeSpeed = this.baseSpeed * this.speedMultiplier;
-        this.bird.gravity = 0.6 * this.speedMultiplier;
+        
+        // Update display
+        this.updateDisplay();
     }
     
     updateBird() {

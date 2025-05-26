@@ -29,7 +29,7 @@ class PlatformerGame {
             height: 32,
             vx: 0,
             vy: 0,
-            speed: 5,
+            speed: 3,
             jumpPower: 15,
             onGround: false,
             facing: 1, // 1 = right, -1 = left

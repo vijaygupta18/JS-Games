@@ -82,6 +82,19 @@ class PongGame {
         document.getElementById('pauseBtn').addEventListener('click', () => this.togglePause());
         document.getElementById('resetBtn').addEventListener('click', () => this.resetGame());
         
+        // Speed slider
+        const speedSlider = document.getElementById('speedSlider');
+        const speedValue = document.getElementById('speedValue');
+        
+        speedSlider.addEventListener('input', () => {
+            const speed = parseFloat(speedSlider.value);
+            speedValue.textContent = speed;
+            this.ball.speed = speed;
+        });
+        
+        // Set initial speed
+        this.ball.speed = parseFloat(speedSlider.value);
+        
         // Difficulty selector
         document.getElementById('difficultySelect').addEventListener('change', (e) => {
             this.aiDifficulty = e.target.value;

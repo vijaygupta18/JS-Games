@@ -3,39 +3,46 @@
     --primary-color: #667eea;
     --secondary-color: #764ba2;
     --accent-color: #f093fb;
-    --background-color: #f8fafc;
-    --surface-color: #ffffff;
-    --text-primary: #2d3748;
-    --text-secondary: #718096;
-    --border-color: #e2e8f0;
-    --success-color: #48bb78;
-    --warning-color: #ed8936;
-    --error-color: #f56565;
-    --grid-bg: #bbada0;
-    --empty-cell: #cdc1b4;
-    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-    --shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    --background-color: #0f172a;
+    --surface-color: #1e293b;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --border-color: #334155;
+    --success-color: #10b981;
+    --warning-color: #f59e0b;
+    --error-color: #ef4444;
+    --grid-bg: #475569;
+    --empty-cell: #64748b;
+    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+    --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+    --shadow-heavy: 0 20px 25px -5px rgba(0, 0, 0, 0.5);
+    --shadow-3d: 0 8px 32px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(0, 0, 0, 0.2);
+    --shadow-inset: inset 0 4px 8px rgba(0, 0, 0, 0.3);
     --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     --gradient-accent: linear-gradient(135deg, var(--accent-color), var(--primary-color));
-    --border-radius: 12px;
+    --gradient-surface: linear-gradient(145deg, #1e293b, #0f172a);
+    --gradient-game-board: linear-gradient(145deg, #334155, #1e293b);
+    --gradient-grid: linear-gradient(145deg, #475569, #334155);
+    --border-radius: 16px;
+    --border-radius-large: 24px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --perspective: 1000px;
 }
 
-/* Tile colors */
+/* Enhanced Tile colors with gradients */
 :root {
-    --tile-2: #eee4da;
-    --tile-4: #ede0c8;
-    --tile-8: #f2b179;
-    --tile-16: #f59563;
-    --tile-32: #f67c5f;
-    --tile-64: #f65e3b;
-    --tile-128: #edcf72;
-    --tile-256: #edcc61;
-    --tile-512: #edc850;
-    --tile-1024: #edc53f;
-    --tile-2048: #edc22e;
-    --tile-super: #3c3a32;
+    --tile-2: linear-gradient(145deg, #f1f5f9, #e2e8f0);
+    --tile-4: linear-gradient(145deg, #fef3c7, #fde68a);
+    --tile-8: linear-gradient(145deg, #fed7aa, #fdba74);
+    --tile-16: linear-gradient(145deg, #fca5a5, #f87171);
+    --tile-32: linear-gradient(145deg, #f472b6, #ec4899);
+    --tile-64: linear-gradient(145deg, #a78bfa, #8b5cf6);
+    --tile-128: linear-gradient(145deg, #60a5fa, #3b82f6);
+    --tile-256: linear-gradient(145deg, #34d399, #10b981);
+    --tile-512: linear-gradient(145deg, #fbbf24, #f59e0b);
+    --tile-1024: linear-gradient(145deg, #fb7185, #e11d48);
+    --tile-2048: linear-gradient(145deg, #c084fc, #a855f7);
+    --tile-super: linear-gradient(145deg, #1f2937, #111827);
 }
 
 /* Reset and base styles */
@@ -47,19 +54,21 @@
 
 body {
     font-family: 'Poppins', sans-serif;
-    background: var(--background-color);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: var(--perspective);
 }
 
 .container {
-    max-width: 600px;
+    max-width: 700px;
     width: 100%;
     padding: 20px;
+    transform-style: preserve-3d;
 }
 
 /* Header */

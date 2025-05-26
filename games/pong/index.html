@@ -50,6 +50,14 @@
             </div>
 
             <div class="game-controls">
+                <div class="speed-slider-group">
+                    <label for="speedSlider" class="slider-label">
+                        <i class="fas fa-tachometer-alt"></i> 
+                        Ball Speed: <span id="speedValue">5</span>
+                    </label>
+                    <input type="range" min="3" max="10" value="5" step="0.5" id="speedSlider">
+                </div>
+                
                 <div class="difficulty-selector">
                     <label for="difficultySelect">AI Difficulty:</label>
                     <select id="difficultySelect">
